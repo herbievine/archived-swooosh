@@ -13,7 +13,7 @@ const mongoose = require("mongoose");
 
 // To start Redis Serve in Powershell run:
 // C:\ProgramData\chocolatey\lib\redis-64\redis-server.exe
-const redisClient = require("redis").createClient();
+const redisClient = require("redis").createClient(process.env.REDIS_URL || undefined);
 
 const limiter = require("express-limiter")(app, redisClient);
 
