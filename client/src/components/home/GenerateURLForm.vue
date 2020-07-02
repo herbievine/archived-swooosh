@@ -141,7 +141,7 @@ export default {
                 this.data.url = null;
             }
 
-            // if (this.disabled) return (this.error = { type: 'timeout' });
+            if (this.disabled) return (this.error = { type: 'timeout' });
 
             const url = startsWithHTTPS.test(this.data.url)
                 ? this.data.url
