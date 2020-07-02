@@ -6,7 +6,7 @@ const config = require("../app.config");
 const URL = mongoose.model("Url", config.URLSchema, "urls");
 
 // Endpoint that users go to that gets them redirected
-router.get("/:id", async (req, res) => {
+router.get("/i/:id", async (req, res) => {
   const { id } = await req.params;
   if (id) {
     URL.findById(id, async (err, doc) => {

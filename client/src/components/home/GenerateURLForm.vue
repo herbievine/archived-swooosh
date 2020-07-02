@@ -153,7 +153,7 @@ export default {
                 id: id,
                 url: url,
                 redirect: encodeURIComponent(url),
-                shortUrl: `https://swooo.sh/${id}`,
+                shortUrl: `https://swooo.sh/i/${id}`,
                 createdOn: moment().format('dddd, MMMM Do YYYY, h:mm:ss a'),
             };
         },
