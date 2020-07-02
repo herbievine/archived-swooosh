@@ -1,0 +1,27 @@
+{
+  "name": "swooo.sh",
+  "version": "1.0.0",
+  "description": "URL shortener",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "serve": "nodemon app.js"
+  },
+  "author": "Herbie Vine",
+  "license": "Apache 2.0",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-limiter": "^1.6.1",
+    "fitty": "^2.3.0",
+    "helmet": "^3.23.3",
+    "mongoose": "^5.9.20",
+    "morgan": "^1.10.0",
+    "redis": "^3.0.2",
+    "yup": "^0.29.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  }
+}
