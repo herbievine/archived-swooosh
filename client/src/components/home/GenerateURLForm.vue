@@ -104,28 +104,30 @@ export default {
     },
     methods: {
         async submit() {
-            const swooosh = this.sanitize();
+            const swooosh = await this.sanitize();
+            if (swooosh.error) return this.error = swooosh.error;
+            if (!this.error) {
+                const domain = await window.location.href.replace(/8081/g, '8080');
 
-            const domain = await window.location.href.replace(/8081/g, '8080');
+                const defaultHeaders = new Headers();
 
-            const defaultHeaders = new Headers();
+                const response = await fetch(`${domain}create`, {
+                    method: 'POST',
+                    headers: {
+                        ...defaultHeaders,
+                        'Content-Type': 'application/json',
+                    },
+                    body: await JSON.stringify(swooosh),
+                });
 
-            const response = await fetch(`${domain}create`, {
-                method: 'POST',
-                headers: {
-                    ...defaultHeaders,
-                    'Content-Type': 'application/json',
-                },
-                body: await JSON.stringify(swooosh),
-            });
+                const results = await response.json();
 
-            const results = await response.json();
-
-            if (results.error) this.error = results.error;
-            if (results.status === 200 && results.ok) {
-                this.time = 30;
-                this.success = true;
-                this.setSwooosh(results.data);
+                if (results.error) this.error = results.error;
+                if (results.status === 200 && results.ok) {
+                    this.time = 30;
+                    this.success = true;
+                    this.setSwooosh(results.data);
+                }
             }
         },
         sanitize() {
