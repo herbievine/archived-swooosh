@@ -28,7 +28,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/favicon-32x32.png"
   },
   {
-    "revision": "789bbf7ea7ae46d7ace7942e10ef057e",
+    "revision": "2df4d913db348b85c6b793a3056d2b78",
     "url": "/index.html"
   },
   {
@@ -40,7 +40,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/js/chunk-vendors.45eca1fc.js"
   },
   {
-    "revision": "5af6a5c56856c1894471adae176ba44b",
+    "revision": "8a5f4787a48ec7a0051f8c12ddc0eee5",
     "url": "/manifest.json"
   },
   {
@@ -54,9 +54,5 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
     "revision": "f22b15c1df6d7b422bf3bacd440cd5b1",
     "url": "/safari-pinned-tab.svg"
-  },
-  {
-    "revision": "63948e875bbd53d68c24545f96ca3ebe",
-    "url": "/webmanifest.json"
   }
 ]);
