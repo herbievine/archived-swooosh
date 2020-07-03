@@ -1,5 +1,11 @@
+/**
+ * Software licensed under the Apache 2.0 license
+ * See LICENSE in root folder for full file
+ *
+ * Copyright Herbie Vine 2020
+ */
+
 require("dotenv").config();
-let rateLimitExceeded = false;
 
 const config = require("./app.config");
 const express = require("express");
@@ -54,10 +60,5 @@ app.use("/", express.static(config.path));
 const routes = require("./routes");
 app.use("/", routes);
 
-// No endpoints here. Redirect to Vue app
-app.get("/*", (req, res) => {
-    res.redirect("/");
-});
-
-const port = process.env.PORT || 8080;
+const port = process.env.PRODUCTION ? process.env.PORT : 8080;
 app.listen(port, () => console.log(`Listening on http://localhost:${port}`));

@@ -107,6 +107,11 @@ export default {
             const swooosh = await this.sanitize();
             if (swooosh.error) return this.error = swooosh.error;
             if (!this.error) {
+                /**
+                 * For development purposes:
+                 * When developing Server on port 8080 and Client on port 8081
+                 * Make the request to port 8080
+                 */
                 const domain = await window.location.href.replace(/8081/g, '8080');
 
                 const defaultHeaders = new Headers();
@@ -224,8 +229,7 @@ export default {
         }
 
         & .error {
-            color: #cccccc;
-            border-bottom: 1px solid #bf1717;
+            color: #bf1717;
 
             &::placeholder {
                 color: #bf1717;
