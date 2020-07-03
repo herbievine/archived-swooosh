@@ -1,7 +1,7 @@
 <template>
-    <router-link to="/">
+    <p>
         swooo[sh]
-    </router-link>
+    </p>
 </template>
 
 <script>
@@ -11,12 +11,16 @@ export default {
 </script>
 
 <style scoped lang="scss">
-a {
+p {
     font-size: 30px;
     color: #cccccc;
     font-weight: 700;
     font-family: 'Quicksand', sans-serif;
     letter-spacing: 0.2ch;
     text-decoration: none;
+
+    &:hover{
+        cursor: pointer;
+    }
 }
 </style>

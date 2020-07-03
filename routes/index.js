@@ -53,4 +53,9 @@ router.post("/create", async (req, res, next) => {
     }
 });
 
+// Redirect
+router.get('/*', (req, res) => {
+    res.redirect('/?e=404')
+});
+
 module.exports = router;
