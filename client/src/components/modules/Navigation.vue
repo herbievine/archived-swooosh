@@ -1,7 +1,7 @@
 <template>
     <div class="nav">
         <div class="logo">
-            <Logo @click.native="$router.push('/')" />
+            <Logo @click.native="$router.replace('/')" />
         </div>
     </div>
 </template>
