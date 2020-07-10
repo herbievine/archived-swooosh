@@ -22,7 +22,7 @@
                 />
             </div>
 
-            <label for="id">Custom ID (optional)</label>
+            <label for="id">Custom ID (optional):</label>
             <input
                 :class="error ? (error.path === 'id' ? 'error' : '') : ''"
                 class="id"
