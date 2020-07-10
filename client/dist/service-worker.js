@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/precache-manifest.1f7690dd315ebd9b89c52a310e4847c5.js"
+  "/precache-manifest.f1d9ee4ecfb28469406f5481bd135061.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "swooo.sh"});
