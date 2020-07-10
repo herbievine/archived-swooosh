@@ -48,17 +48,28 @@ limiter({
     },
 });
 
-app.use(morgan("tiny"));
+app.use(morgan("common"));
 app.use(helmet());
 app.use(express.json());
 app.use(cors());
 
 // Entry Point
 app.use("/", express.static(config.path));
+app.use("/404", express.static(config.path));
 
 // Routes
-const routes = require("./routes");
-app.use("/", routes);
+const api = require("./api");
+app.use("/api/v1", api);
+
+const urlRedirect = require('./routes');
+app.use('/', urlRedirect);
+
+// Redirect
+app.get('/*', (req, res) => {
+    if (req.path === '/404') return;
+    res.redirect('/404')
+    // res.send('heelo')
+});
 
 const port = process.env.PRODUCTION ? process.env.PORT : 8080;
 app.listen(port, () => console.log(`Listening on http://localhost:${port}`));

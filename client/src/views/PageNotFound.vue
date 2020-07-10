@@ -1,8 +1,12 @@
 <template>
     <div class="not-found">
-        <p>Sorry, what you're looking</p>
-        <p>for isn't here</p>
-        <Logo />
+        <div>
+            <p>Sorry, we couldn't find what</p>
+            <p>you're looking for...</p>
+        </div>
+        <router-link to="/">
+            <Logo />
+        </router-link>
     </div>
 </template>
 
@@ -18,9 +22,13 @@
 </script>
 
 <style scoped lang="scss">
+a {
+    text-decoration: none;
+}
+
 .not-found {
     width: 100%;
-    margin: 0 auto;
+    margin: 100px auto 0;
     display: flex;
     flex-direction: column;
     justify-content: center;

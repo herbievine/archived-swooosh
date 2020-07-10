@@ -116,7 +116,7 @@ export default {
 
                 const defaultHeaders = new Headers();
 
-                const response = await fetch(`${domain}create`, {
+                const response = await fetch(`${domain}api/v1/create`, {
                     method: 'POST',
                     headers: {
                         ...defaultHeaders,
@@ -197,6 +197,7 @@ export default {
 
         & input {
             padding: 10px 16px;
+            font-size: 16px;
             color: #cccccc;
             background-color: #323232;
             border: none;
@@ -211,14 +212,15 @@ export default {
             margin-bottom: 10px;
 
             & .prefix {
-                width: 22%;
+                width: 25%;
+                min-width: 90px;
                 border-bottom-right-radius: 0;
                 border-top-right-radius: 0;
                 background-color: #393939;
             }
 
             & .url {
-                width: 78%;
+                width: 75%;
                 border-bottom-left-radius: 0;
                 border-top-left-radius: 0;
             }

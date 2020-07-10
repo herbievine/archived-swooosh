@@ -11,8 +11,13 @@ const routes = [
         component: Home,
     },
     {
+        path: '/404',
+        name: 'PageNotFoumd',
+        component: () => import('../views/PageNotFound'),
+    },
+    {
         path: '*',
-        redirect: '/',
+        redirect: '/404',
     },
 ];
 
