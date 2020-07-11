@@ -11,6 +11,11 @@ const routes = [
         component: Home,
     },
     {
+        path: '/analytics',
+        name: 'Analytics',
+        component: () => import('../views/Analytics'),
+    },
+    {
         path: '/404',
         name: 'PageNotFoumd',
         component: () => import('../views/PageNotFound'),

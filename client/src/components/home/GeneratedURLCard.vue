@@ -1,31 +1,37 @@
 <template>
     <div class="card" v-if="Object.keys(getSwooosh).length >= 1">
-        <div class="body">
-            <a id="display" :href="getSwooosh.shortUrl" target="_BLANK">{{
-                getSwooosh.shortUrl
-            }}</a>
-        </div>
+        <a
+            title="Generated URL"
+            id="display"
+            :href="getSwooosh.shortUrl"
+            target="_BLANK"
+        >
+            {{ cleanUrl(getSwooosh.shortUrl) }}
+        </a>
     </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex';
-import fitty from 'fitty';
 
 export default {
     name: 'GeneratedURLCard',
     computed: mapGetters({
         getSwooosh: 'getSwooosh',
     }),
-    updated() {
-        fitty('#display', { minSize: 18, maxSize: 26 });
-    },
     methods: {
         cleanUrl(url) {
             const newUrl = new URL(url);
-            return `${newUrl.hostname}/${
-                newUrl.pathname.length >= 2 ? '...' : ''
-            }`;
+
+            const path =
+                newUrl.pathname.length >= 10
+                    ? `${newUrl.pathname
+                          .split('')
+                          .slice(0, 10)
+                          .join('')}...`
+                    : newUrl.pathname;
+
+            return `https://${newUrl.hostname}${path}`;
         },
     },
 };
@@ -33,30 +39,23 @@ export default {
 
 <style scoped lang="scss">
 .card {
-    margin-top: 50px;
+    margin: 50px auto 0;
     width: 100%;
+    max-width: 400px;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
+    border-top: 1px solid #323232;
 
-    & .body {
-        max-width: 400px;
-        width: 100%;
-        height: 60px;
-        border-top: 1px solid #cccccc;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-
-        & a {
-            max-width: 400px;
-            font-size: 22px;
-            color: #cccccc;
-            font-weight: 700;
-            letter-spacing: 0.1ch;
-            text-decoration: underline;
-        }
+    & a {
+        white-space: nowrap;
+        margin-top: 30px;
+        font-size: 22px;
+        color: #cccccc;
+        font-weight: 700;
+        letter-spacing: 0.1ch;
+        text-decoration: underline;
     }
 }
 </style>

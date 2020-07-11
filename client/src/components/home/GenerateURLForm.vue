@@ -18,7 +18,7 @@
                     id="url"
                     type="text"
                     placeholder="your url"
-                    v-model="data.url"
+                    v-model.trim="data.url"
                 />
             </div>
 
@@ -29,7 +29,7 @@
                 id="id"
                 type="text"
                 placeholder="custom id"
-                v-model="data.id"
+                v-model.trim="data.id"
             />
 
             <div class="content">
@@ -39,13 +39,7 @@
                     name="Create URL"
                 />
                 <p :class="error ? 'errorP' : ''">
-                    {{
-                        error
-                            ? messages
-                            : success
-                            ? 'URL generated successfully!'
-                            : ''
-                    }}
+                    {{ error ? messages : success ? successMessage : '' }}
                 </p>
             </div>
         </form>
@@ -64,7 +58,7 @@ export default {
         Button,
     },
     watch: {
-        time: function (val) {
+        time: function(val) {
             if (val > 0) {
                 setTimeout(() => this.time--, 1000);
                 this.disabled = true;
@@ -80,6 +74,7 @@ export default {
             error: null,
             time: 0,
             success: false,
+            successMessage: null,
             data: {
                 id: null,
                 url: null,
@@ -87,7 +82,7 @@ export default {
         };
     },
     computed: {
-        messages: function () {
+        messages: function() {
             const types = {
                 http: 'Only secure URLs are allowed (HTTPS)',
                 rate: 'Too many requests',
@@ -105,18 +100,21 @@ export default {
     methods: {
         async submit() {
             const swooosh = await this.sanitize();
-            if (swooosh.error) return this.error = swooosh.error;
+            if (swooosh.error) return (this.error = swooosh.error);
             if (!this.error) {
                 /**
                  * For development purposes:
                  * When developing Server on port 8080 and Client on port 8081
                  * Make the request to port 8080
                  */
-                const domain = await window.location.href.replace(/8081/g, '8080');
+                const domain = await window.location.origin.replace(
+                    /8081/g,
+                    '8080'
+                );
 
                 const defaultHeaders = new Headers();
 
-                const response = await fetch(`${domain}api/v1/create`, {
+                const response = await fetch(`${domain}/api/v1/create`, {
                     method: 'POST',
                     headers: {
                         ...defaultHeaders,
@@ -125,13 +123,14 @@ export default {
                     body: await JSON.stringify(swooosh),
                 });
 
-                const results = await response.json();
+                const result = await response.json();
 
-                if (results.error) this.error = results.error;
-                if (results.status === 200 && results.ok) {
+                if (result.error) this.error = result.error;
+                if (result.ok) {
                     this.time = 30;
                     this.success = true;
-                    this.setSwooosh(results.data);
+                    this.successMessage = 'URL generated successfully!';
+                    this.setSwooosh(result.data);
                 }
             }
         },
@@ -140,6 +139,7 @@ export default {
 
             this.error = null;
             this.success = false;
+            this.successMessage = null;
 
             if (typeof this.data.id === 'string' && this.data.id === '') {
                 this.data.id = null;
@@ -154,14 +154,16 @@ export default {
                 ? this.data.url
                 : `https://${this.data.url}`;
 
-            const id = this.data.id || kimp.hash(6);
+            let id = this.data.id || kimp.hash(6);
+
+            id = id.toLowerCase();
 
             return {
                 id: id,
                 url: url,
                 redirect: encodeURIComponent(url),
                 shortUrl: `https://swooo.sh/i/${id}`,
-                createdOn: moment().format('dddd, MMMM Do YYYY, h:mm:ss a'),
+                createdOn: moment().format('dddd, MMMM Do YYYY, h:mm:ss a zz'),
             };
         },
         ...mapActions({

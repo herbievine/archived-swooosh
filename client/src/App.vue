@@ -1,7 +1,9 @@
 <template>
     <div id="app">
         <Navigation />
-        <router-view />
+        <keep-alive>
+            <router-view />
+        </keep-alive>
     </div>
 </template>
 
@@ -51,5 +53,7 @@ body {
     height: 100%;
     width: 100%;
     margin: 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 </style>

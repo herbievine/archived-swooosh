@@ -1,6 +1,8 @@
 <template>
     <div>
-        <button class="btn">{{ name }}</button>
+        <button :title="name" :class="alert ? 'alert' : ''" class="btn">
+            {{ name }}
+        </button>
     </div>
 </template>
 
@@ -11,6 +13,11 @@ export default {
         name: {
             type: String,
             required: true,
+        },
+        alert: {
+            type: Boolean,
+            required: false,
+            default: false,
         },
     },
 };
@@ -31,5 +38,9 @@ export default {
     &:hover {
         cursor: pointer;
     }
+}
+
+.alert {
+    color: #bf1717 !important;
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-    <p>
+    <p title="swooo[sh]">
         swooo[sh]
     </p>
 </template>
@@ -16,10 +16,10 @@ p {
     color: #cccccc;
     font-weight: 700;
     font-family: 'Quicksand', sans-serif;
-    letter-spacing: 0.2ch;
+    letter-spacing: 0.1ch;
     text-decoration: none;
 
-    &:hover{
+    &:hover {
         cursor: pointer;
     }
 }

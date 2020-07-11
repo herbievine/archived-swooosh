@@ -17,11 +17,8 @@ const app = express();
 
 const mongoose = require("mongoose");
 
-// To start Redis Serve in Powershell run:
-// C:\ProgramData\chocolatey\lib\redis-64\redis-server.exe
-const redisClient = require("redis").createClient(process.env.REDIS_URL || undefined);
-
-const limiter = require("express-limiter")(app, redisClient);
+const limitRate = require('express-rate-limit')
+const slowRate = require("express-slow-down");
 
 mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/swooosh", {
     useNewUrlParser: true,
@@ -31,22 +28,7 @@ const db = mongoose.connection;
 db.on("error", (e) => console.log(e));
 db.once("open", () => console.log("Connected to DB"));
 
-limiter({
-    path: "/create",
-    method: "post",
-    lookup: "connection.remoteAddress",
-    skipHeaders: true,
-    total: 200,
-    expire: 1000 * 60 * 60,
-    onRateLimited: (req, res, next) => {
-        res.status(429).json({
-            error: {
-                path: "other",
-                type: "rate",
-            },
-        });
-    },
-});
+app.set('trust proxy', 1);
 
 app.use(morgan("common"));
 app.use(helmet());

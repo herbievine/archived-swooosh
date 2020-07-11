@@ -1,27 +1,27 @@
 <template>
-    <div class="home">
+    <div class="analytics">
         <keep-alive>
-            <GenerateURLForm />
+            <GetURLInfo />
         </keep-alive>
-        <GeneratedURLCard />
+        <AnalyticsData />
     </div>
 </template>
 
 <script>
-import GenerateURLForm from '@/components/home/GenerateURLForm';
-import GeneratedURLCard from '@/components/home/GeneratedURLCard';
+import GetURLInfo from '@/components/analytics/GetURLInfo';
+import AnalyticsData from '@/components/analytics/AnalyticsData';
 
 export default {
-    name: 'Home',
+    name: 'Analytics',
     components: {
-        GenerateURLForm,
-        GeneratedURLCard,
+        AnalyticsData,
+        GetURLInfo,
     },
 };
 </script>
 
 <style scoped lang="scss">
-.home {
+.analytics {
     padding-top: 80px;
     margin: 0 auto;
     width: 90%;
