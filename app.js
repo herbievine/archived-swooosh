@@ -46,12 +46,5 @@ app.use("/api/v1", api);
 const urlRedirect = require('./routes');
 app.use('/', urlRedirect);
 
-// Redirect
-app.get('/*', (req, res) => {
-    if (req.path === '/404') return;
-    res.redirect('/404')
-    // res.send('heelo')
-});
-
 const port = process.env.PRODUCTION ? process.env.PORT : 8080;
 app.listen(port, () => console.log(`Listening on http://localhost:${port}`));
