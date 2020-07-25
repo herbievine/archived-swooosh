@@ -92,6 +92,7 @@ export default {
                 url: 'Must be a valid URL',
                 matches: 'Invalid characters',
                 mongoErrorId: 'ID already taken',
+                loop: `You can't shorten swooo[sh] URLs`
             };
 
             return types[this.error.type];
@@ -141,18 +142,29 @@ export default {
             this.success = false;
             this.successMessage = null;
 
-            if (typeof this.data.id === 'string' && this.data.id === '') {
+            const url = startsWithHTTPS.test(this.data.url)
+                ? this.data.url
+                : `https://${this.data.url}`;
+
+            let urlObj = {};
+
+            try {
+                urlObj = new URL(url);
+            } catch {
+                return (this.error = { type: 'url', path: 'url' });
+            }
+
+            if (urlObj.hostname.includes('swooo.sh')) {
+                return this.error = { type: 'loop' }
+            }
+            if (this.data.id === '') {
                 this.data.id = null;
             }
-            if (typeof this.data.url === 'string' && this.data.url === '') {
+            if (this.data.url === '') {
                 this.data.url = null;
             }
 
             if (this.disabled) return (this.error = { type: 'timeout' });
-
-            const url = startsWithHTTPS.test(this.data.url)
-                ? this.data.url
-                : `https://${this.data.url}`;
 
             let id = this.data.id || kimp.hash(6);
 
